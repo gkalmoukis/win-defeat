@@ -42,6 +42,11 @@ $(document).ready(function(){
                 $("#table-1").remove();
                 initArray();
                 renderTable();
+                times = 2.25;
+                $("#times-input").remove();
+                $("#change-button").remove();
+                createPercentageInput();
+
             }
         });
         $('#controls').append($button);
