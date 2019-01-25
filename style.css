@@ -7,3 +7,4 @@ table, th, td {
 .black-button {background-color: #555555;color: #e7e7e7;} /* Black */
 .span-value {background-color: #e7e7e7; color: black;} /* Gray */
 .red-button {background-color: #f44336;color: #e7e7e7;} /* Red */
+.control-button{background-color: #00ff40;	;color: black;}
