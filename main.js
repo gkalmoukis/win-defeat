@@ -11,7 +11,7 @@ $(document).ready(function(){
     renderTable();
     function createResetButton(){
         $reset = $('<button/>', {
-            class: 'btn btn-success btn-sm',
+            class: 'btn btn-secondary action',
             text: 'Reset',
             id: 'reset-button',
             click: function () { 
@@ -24,7 +24,7 @@ $(document).ready(function(){
     }
     function createHideButton(){
         $reset = $('<button/>', {
-            class: 'btn btn-success btn-sm',
+            class: 'btn btn-secondary action',
             text: 'Hide buttons',
             id: 'hide-button',
             click: function () { 
@@ -36,7 +36,7 @@ $(document).ready(function(){
     }
     function createShowButton(){
         $reset = $('<button/>', {
-            class: 'btn btn-success btn-sm',
+            class: 'btn btn-secondary action',
             text: 'Show buttons',
             id: 'show-button',
             click: function () { 
