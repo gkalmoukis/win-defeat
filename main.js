@@ -1,16 +1,40 @@
 $(document).ready(function(){
     var a = [];
-    var $reset;
-    var $hide;
     var $table;
     var $row;
+    var times = 2.25;
     initArray();
+    renderTable();
     createResetButton();
     createHideButton();
     createShowButton();
-    renderTable();
+    createPercentageInput();
+
+    function createPercentageInput(){
+        var $input = $('<input>',{
+            type: 'text',
+            id: 'times-input',
+            class: 'form-control action col-1',
+            value: times
+        });
+        var $button = $('<button/>', {
+            class: 'btn btn-success action',
+            text: 'Change',
+            id: 'change-button',
+            click: function () { 
+                $("#table-1").remove();
+                initArray();
+                renderTable();
+                times = $('#times-input').val();
+            }
+        });
+        $('#controls').append($input);
+        $('#controls').append($button);
+
+    }
+
     function createResetButton(){
-        $reset = $('<button/>', {
+        var $button = $('<button/>', {
             class: 'btn btn-secondary action',
             text: 'Reset',
             id: 'reset-button',
@@ -20,10 +44,10 @@ $(document).ready(function(){
                 renderTable();
             }
         });
-        $('#controls').append($reset);
+        $('#controls').append($button);
     }
     function createHideButton(){
-        $reset = $('<button/>', {
+        var $button = $('<button/>', {
             class: 'btn btn-secondary action',
             text: 'Hide buttons',
             id: 'hide-button',
@@ -32,10 +56,10 @@ $(document).ready(function(){
                 renderNoButtonsTable();
             }
         });
-        $('#controls').append($reset);
+        $('#controls').append($button);
     }
     function createShowButton(){
-        $reset = $('<button/>', {
+        var $button = $('<button/>', {
             class: 'btn btn-secondary action',
             text: 'Show buttons',
             id: 'show-button',
@@ -44,7 +68,7 @@ $(document).ready(function(){
                 renderTable();
             }
         });
-        $('#controls').append($reset);
+        $('#controls').append($button);
     }
     function initArray(){
         a[0] = [1,1,1,1,1,1,1,1,1,1]; 
@@ -68,11 +92,11 @@ $(document).ready(function(){
             $table.append($row);
             for (j = 0; j < 10; j++) {
                 var $td = $('<td>');
+                
                 var $value = $('<span>', {
                     text : (a[i][j] * 1).toFixed(2),
-                    class: 'badge badge-secondary'
+                    class: 'badge badge-light'
                 } );            
-                
                 $value.appendTo($td);
                 $td.appendTo($row);  
             }
@@ -99,31 +123,20 @@ $(document).ready(function(){
             var $black = $('<button/>', {
                 class: 'btn btn-dark',
                 text: '',
-                id: 'b_'+i+'_'+j,
-                click: function () { 
-                    $("#table-1").remove();
-                    a[i+1][j] = 1;
-                    renderTable();
-                }
+                id: 'b_'+i+'_'+j
             }).prop("disabled", true);
             var $red = $('<button/>', {
                 class: 'btn btn-danger',
                 text: '',
-                id: 'r_'+i+'_'+j,
-                click: function () { 
-                    $("#table-1").remove();
-                    a[i+1][j] =  (a[i][j] * 2.25).toFixed(2);
-                    renderTable();
-                }
-                
+                id: 'r_'+i+'_'+j
             }).prop("disabled", true);
             var $value = $('<span>', {
                 text : (a[i][j] * 1).toFixed(2),
                 class: 'badge badge-secondary'
             } );            
             $black.appendTo($td);
-            $red.appendTo($td);
             $value.appendTo($td);
+            $red.appendTo($td);
             $td.appendTo($row);
         } else {
             var $td = $('<td>');
@@ -143,7 +156,7 @@ $(document).ready(function(){
                 id: 'r_'+i+'_'+j,
                 click: function () { 
                     $("#table-1").remove();
-                    a[i+1][j] =  (a[i][j] * 2.25).toFixed(2);
+                    a[i+1][j] =  (a[i][j] * times).toFixed(2);
                     renderTable();
                 }
             });
@@ -152,8 +165,8 @@ $(document).ready(function(){
                 class: 'badge badge-secondary'
             } );            
             $black.appendTo($td);
+            $value.appendTo($td);            
             $red.appendTo($td);
-            $value.appendTo($td);
             $td.appendTo($row);
         }
     }
