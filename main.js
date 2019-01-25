@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    
     var a = [];
     var $reset;
     var $table;
@@ -7,10 +6,9 @@ $(document).ready(function(){
     initArray();
     createResetButton();
     renderTable();
-
     function createResetButton(){
         $reset = $('<button/>', {
-            class: 'control-button',
+            class: 'btn btn-success btn-sm',
             text: 'Reset',
             id: 'reset-button',
             click: function () { 
@@ -21,7 +19,6 @@ $(document).ready(function(){
         });
         $('#controls').append($reset);
     }
-
     function initArray(){
         a[0] = [1,1,1,1,1,1,1,1,1,1]; 
         a[1] = [0,0,0,0,0,0,0,0,0,0];
@@ -34,10 +31,11 @@ $(document).ready(function(){
         a[8] = [0,0,0,0,0,0,0,0,0,0];
         a[9] = [0,0,0,0,0,0,0,0,0,0];
     }
-
     function renderTable()
     {
-        $table = $('<table>',{id: 'table-1'});
+        $table = $('<table>',{
+            id: 'table-1'
+        });
         for(i=0; i<10; i++){
             $row = $('<tr>');
             $table.append($row);
@@ -50,17 +48,40 @@ $(document).ready(function(){
     function renderCell(i,j){
         if(i==9){
             var $td = $('<td>');
+            var $black = $('<button/>', {
+                class: 'btn btn-dark',
+                text: '',
+                id: 'b_'+i+'_'+j,
+                click: function () { 
+                    $("#table-1").remove();
+                    a[i+1][j] = 1;
+                    renderTable();
+                }
+            }).prop("disabled", true);
+            var $red = $('<button/>', {
+                class: 'btn btn-danger',
+                text: '',
+                id: 'r_'+i+'_'+j,
+                click: function () { 
+                    $("#table-1").remove();
+                    a[i+1][j] =  (a[i][j] * 2.25).toFixed(2);
+                    renderTable();
+                }
+                
+            }).prop("disabled", true);
             var $value = $('<span>', {
                 text : (a[i][j] * 1).toFixed(2),
-                class: 'span-value'
-            } );
+                class: 'badge badge-secondary'
+            } );            
+            $black.appendTo($td);
+            $red.appendTo($td);
             $value.appendTo($td);
             $td.appendTo($row);
         } else {
             var $td = $('<td>');
             var $black = $('<button/>', {
-                class: 'black-button',
-                text: 'b',
+                class: 'btn btn-dark',
+                text: '',
                 id: 'b_'+i+'_'+j,
                 click: function () { 
                     $("#table-1").remove();
@@ -69,8 +90,8 @@ $(document).ready(function(){
                 }
             });
             var $red = $('<button/>', {
-                class: 'red-button',
-                text: 'r',
+                class: 'btn btn-danger',
+                text: '',
                 id: 'r_'+i+'_'+j,
                 click: function () { 
                     $("#table-1").remove();
@@ -80,7 +101,7 @@ $(document).ready(function(){
             });
             var $value = $('<span>', {
                 text : (a[i][j] * 1).toFixed(2),
-                class: 'span-value'
+                class: 'badge badge-secondary'
             } );            
             $black.appendTo($td);
             $red.appendTo($td);
