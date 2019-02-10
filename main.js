@@ -87,8 +87,9 @@ $(document).ready(function(){
 
     // render cell
     function renderCell(i,j){
-            // black win
-            var $td = $('<td>');
+        var $td = $('<td>');    
+        // black win
+            
             var $black = $('<button/>', {
                 class: 'btn btn-dark',
                 text: '',
@@ -132,9 +133,11 @@ $(document).ready(function(){
         for(let i = 0; i < 10; i++) { 
             statistics[i]={wins:0, loses:0 }    
         }
+        renderStatistics();
     }
 
     function updateStatisticsTable(col,result){
+
         if(result == 1){ //if win
             statistics[col].wins ++; 
         } 
@@ -144,7 +147,33 @@ $(document).ready(function(){
         renderStatistics();
     }
 
+
     function renderStatistics(){
+        // do the math
+        var totalWins = 0; //total win counter
+        var totalLoses = 0; //total loose counter
+        for (let index = 0; index < statistics.length; index++) {
+            totalWins  += statistics[index].wins;
+            totalLoses += statistics[index].loses;
+        }
         console.table(statistics);
+        console.log(totalWins,totalLoses)
+        // remove all preivius statistics report elements
+        $("#table-2").remove();
+        // create the new blood
+        var $table2 = $('<table>',{
+            id: 'table-2'
+        });
+        $row = $('<tr>');
+        $table2.append($row);
+        for(i=0; i<10; i++){
+            var $td = $('<td>');
+            var $value = $('<span>', {
+                text : statistics[i].wins+'/'+statistics[i].loses
+            });    
+            $value.appendTo($td); 
+            $td.appendTo($row);
+        }       
+        $('#statistics').append($table2);
     }    
 }); 
